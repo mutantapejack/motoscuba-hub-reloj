@@ -1,0 +1,13 @@
+name: reloj de programados
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - run: |
+          curl -sS --fail-with-body --max-time 90 -X POST https://motoscuba-hub.vercel.app/api/cron \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
